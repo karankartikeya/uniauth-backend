@@ -81,7 +81,6 @@ export class DashboardController {
   async showUser(@Request() req, @Res() res: Response, @Param('id') id: string) {
     const loggedInUser: LoggedInUser = req.user;
     const user = await this.applicationService.findOneById(id);
-    // const userName = this.userService.findOneById(user.participants[0])
     const records = await this.userService.findUsers(user.participants)
     var rec = []
     records.forEach((i)=>{
