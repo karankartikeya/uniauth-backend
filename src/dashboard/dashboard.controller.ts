@@ -76,21 +76,6 @@ export class DashboardController {
     });
   }
 
-  @Get('/dev/:id')
-  @UseGuards(JwtAuthGuard)
-  async showUser(@Request() req, @Res() res: Response, @Param('id') id: string) {
-    const loggedInUser: LoggedInUser = req.user;
-    const user = await this.applicationService.findOneById(id);
-    const records = await this.userService.findUsers(user.participants)
-    var rec = []
-    records.forEach((i)=>{
-      rec.push(i.name)
-      
-    })
-    res.render('dashboard/detail',{rec})
-
-  }
-
 
   @Post('/dev/:id')
   @UseGuards(JwtAuthGuard)

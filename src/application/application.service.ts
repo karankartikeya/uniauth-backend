@@ -46,6 +46,11 @@ export class ApplicationService {
     return this.applicationModel.find();
   }
 
+  findUsers()
+  {
+    return this.applicationModel.find().populate('participants')
+  }
+
   async findOneById(id: string) {
     if (isValidObjectId(id)) {
       const item = await this.applicationModel.findOne({ _id: id });

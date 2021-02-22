@@ -40,13 +40,15 @@ export class ApplicationController {
     return this.applicationService.findAll();
   }
 
-  // @Get('users')
-  // @UsePipes(ValidationPipe)
-  // async findUsers(@Request() req) {
-  //   const user: AuthorizedUser = req.user;
-  //   const users = await this.applicationService.findUsersByOwner(user)
-  //   return this.applicationService.findAll();
-  // }
+  @Get('/details/:id')
+  @UseGuards(JwtAuthGuard)
+  async showUser(@Request() req, @Param('id') id: string) {
+    const loggedInUser: LoggedInUser = req.user;
+    const user = await this.applicationService.findOneById(id);
+    const records = await this.applicationService.findUsers()
+    console.log(records)
+
+  }
 
   @Get(':id')
   @UsePipes(ValidationPipe)

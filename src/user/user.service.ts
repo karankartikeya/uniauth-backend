@@ -108,10 +108,7 @@ export class UserService {
   findOneById(userId: string) {
     return this.userModel.findOne({ _id: userId });
   }
-  findUsers(userArray:any)
-  {
-    return this.userModel.find().where('_id').in(userArray)
-  }
+
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     const { name, collegeEmail, registrationNumber } = updateUserDto;
