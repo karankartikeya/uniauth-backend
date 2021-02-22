@@ -40,6 +40,14 @@ export class ApplicationController {
     return this.applicationService.findAll();
   }
 
+  // @Get('users')
+  // @UsePipes(ValidationPipe)
+  // async findUsers(@Request() req) {
+  //   const user: AuthorizedUser = req.user;
+  //   const users = await this.applicationService.findUsersByOwner(user)
+  //   return this.applicationService.findAll();
+  // }
+
   @Get(':id')
   @UsePipes(ValidationPipe)
   async findOne(@Request() req, @Param('id') id: string) {

@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserService } from '../user/user.service';
 import { LoggedInUser } from '../auth/interface/loggedInUser.interface';
+import { User, UserDocument } from '../user/user.schema';
 import { SCOPE } from '../account/minions/scopeMapper.minion';
 import { ApplicationService } from '../application/application.service';
 
@@ -66,7 +67,6 @@ export class DashboardController {
     const loggedInUser: LoggedInUser = req.user;
     const user = await this.userService.findOneById(loggedInUser.id);
     const applications = await this.applicationService.findAllByOwner(user);
-
     return res.render('dashboard/dev.hbs', {
       user,
       app: {
@@ -75,6 +75,23 @@ export class DashboardController {
       },
     });
   }
+
+  @Get('/dev/:id')
+  @UseGuards(JwtAuthGuard)
+  async showUser(@Request() req, @Res() res: Response, @Param('id') id: string) {
+    const loggedInUser: LoggedInUser = req.user;
+    const user = await this.applicationService.findOneById(id);
+    // const userName = this.userService.findOneById(user.participants[0])
+    const records = await this.userService.findUsers(user.participants)
+    var rec = []
+    records.forEach((i)=>{
+      rec.push(i.name)
+      
+    })
+    res.render('dashboard/detail',{rec})
+
+  }
+
 
   @Post('/dev/:id')
   @UseGuards(JwtAuthGuard)

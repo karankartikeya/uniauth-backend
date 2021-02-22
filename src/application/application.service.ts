@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Application, ApplicationDocument } from './application.schema';
 import { isValidObjectId, Model } from 'mongoose';
 import { v4 as generateUUID } from 'uuid';
-import { User } from '../user/user.schema';
+import { User, UserDocument } from '../user/user.schema';
 import { LoggedInUser } from '../auth/interface/loggedInUser.interface';
 
 @Injectable()
